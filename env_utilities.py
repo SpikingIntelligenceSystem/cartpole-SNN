@@ -1,5 +1,4 @@
 import gymnasium as gym
-import numpy as np
 
 
 def create_environment(render=False):
