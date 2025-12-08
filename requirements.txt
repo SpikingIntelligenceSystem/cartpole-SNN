@@ -3,3 +3,4 @@ snntorch
 gymnasium
 numpy
 matplotlib
+pygame
