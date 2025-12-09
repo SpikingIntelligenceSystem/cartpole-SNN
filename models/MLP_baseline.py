@@ -2,9 +2,9 @@ import torch
 import torch.nn as nn
 
 
-class MLPBase(nn.module):
+class MLPBase(nn.Module):
     def __init__(self, state_in=4, hidden_lay=64, action_out=2):
-        super().__init()
+        super().__init__()
 
         self.network = nn.Sequential(
             nn.Linear(state_in, hidden_lay),
