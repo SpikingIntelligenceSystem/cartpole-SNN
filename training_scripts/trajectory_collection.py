@@ -11,7 +11,8 @@ Into repo root.
 
 def heuristic(obs):
     x, x_dot, theta, theta_dot = obs
-    return 1 if theta > 0 else 0
+    force = 1.0 * theta + 0.1 * theta_dot + 0.01 * x + 0.1 * x_dot
+    return 1 if force > 0 else 0
 
 
 def collect_trajectories(num_episodes=50, max_steps=500, render=False):
