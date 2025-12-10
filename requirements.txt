@@ -1,6 +1,5 @@
 torch
 snntorch
-gymnasium
+gymnasium[classic-control]
 numpy
 matplotlib
-gymnasium[classic-control]
