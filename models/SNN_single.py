@@ -32,7 +32,7 @@ class SNN_SingleStep(nn.Module):
     def action(self, state: torch.Tensor, deterministic: bool = True) -> int:
         logits = self.forward(state)
         if deterministic:
-            return logits.argmax(dim=-1).item()
+            return int(logits.argmax(dim=-1).item())
         probs = torch.softmax(logits, dim=-1)
         dist = torch.distributions.Categorical(probs=probs)
-        return dist.sample().item()
+        return int(dist.sample().item())
