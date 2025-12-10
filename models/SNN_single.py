@@ -6,11 +6,10 @@ import snntorch as snn
 class SNN_SingleStep(nn.Module):
     def __init__(self, state_in=4, hidden_lay=64, action_out=2, beta=0.9):
         super().__init__()
-
         self.fc1 = nn.Linear(state_in, hidden_lay)
         self.lif1 = snn.Leaky(beta=beta)
 
-        self.fc2 = nn.Linear(hidden_lay, action_out)
+        self.fc2 = nn.Linear(hidden_lay, hidden_lay)
         self.lif2 = snn.Leaky(beta=beta)
 
         self.fc_out = nn.Linear(hidden_lay, action_out)
@@ -31,9 +30,7 @@ class SNN_SingleStep(nn.Module):
     def action(self, state: torch.Tensor, deterministic=True):
         logits = self.forward(state)
         if deterministic:
-            return torch.argmax(logits, dim=-1).item()
-        else:
-            probabilities = torch.softmax(logits, dim=-1)
-            distribution = torch.distributions.Categorical(probabilities)
-            action = distribution.sample().item()
-        return action
+            return logits.argmax(dim=-1).item()
+        probs = torch.softmax(logits, dim=-1)
+        dist = torch.distributions.Categorical(probs=probs)
+        return dist.sample().item()
