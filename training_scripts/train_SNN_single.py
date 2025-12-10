@@ -7,7 +7,7 @@ from models.SNN_single import SNN_SingleStep
 
 """
 To run training, paste the following command into repo root after data collection:
-py -m training_scripts.train_SNN_single
+python -m training_scripts.train_SNN_single
 """
 
 # Configurations

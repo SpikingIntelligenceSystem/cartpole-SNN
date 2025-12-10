@@ -4,7 +4,7 @@ from env_utilities import create_environment
 
 """
 To run data collection, paste:
-py -m training_scripts.trajectory_collection
+python -m training_scripts.trajectory_collection
 Into repo root.
 """
 

@@ -3,7 +3,7 @@ from env_utilities import create_environment, random_episode
 
 """
 Optional test sctipt to verify environment functionality. Run using:
-py -m training_scripts.environment_test
+python -m training_scripts.environment_test
 In repo root.
 """
 

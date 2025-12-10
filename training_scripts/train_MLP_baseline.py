@@ -7,7 +7,7 @@ from models.MLP_baseline import MLPBase
 
 """
 To run training, paste the following command into repo root after data collection:
-py -m training_scripts.train_MLP_baseline
+python -m training_scripts.train_MLP_baseline
 """
 
 # Configurations

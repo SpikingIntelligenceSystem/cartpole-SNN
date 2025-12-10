@@ -5,7 +5,7 @@ from models.MLP_baseline import MLPBase
 
 """
 To run evaluation, paste the following command into repo root after training:
-py -m training_scripts.evaluate_MLP_base
+python -m training_scripts.evaluate_MLP_base
 """
 
 
