@@ -2,6 +2,7 @@ import torch
 from pathlib import Path
 from env_utilities import create_environment
 from models.MLP_baseline import MLPBase
+import json
 
 """
 To run evaluation, paste the following command into repo root after training:
@@ -47,6 +48,8 @@ def main():
     num_episodes = 20
     total_reward_sum = 0.0
     total_num_steps = 0
+    episode_rewards = []
+    episode_steps = []
 
     for episode in range(num_episodes):
         episode_reward, num_steps = run_simulation(
@@ -55,12 +58,28 @@ def main():
             f"Episode {episode + 1}: Reward = {episode_reward}, Steps = {num_steps}")
         total_reward_sum += episode_reward
         total_num_steps += num_steps
+        episode_rewards.append(episode_reward)
+        episode_steps.append(num_steps)
     env.close()
     avg_reward = total_reward_sum / num_episodes
     avg_steps = total_num_steps / num_episodes
     print(f"Average Reward over {num_episodes} episodes: {avg_reward}")
     print(f"Average Steps over {num_episodes} episodes: {avg_steps}")
+    results_dir = Path("results")
+    results_dir.mkdir(exist_ok=True)
+    
+    eval_data = {
+        "model_name": "snn_single_step_cartpole",
+        "num_episodes": num_episodes,
+        "episode_rewards": episode_rewards,
+        "episode_steps": episode_steps,
+        "avg_reward": avg_reward,
+        "avg_steps": avg_steps,
+    }
 
+    out_path = results_dir / "eval_MLP_baseline.json"
+    with open(out_path, "w") as f:
+        json.dump(eval_data, f, indent=2)
 
 if __name__ == "__main__":
     main()
