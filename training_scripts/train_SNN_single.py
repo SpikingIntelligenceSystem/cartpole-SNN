@@ -1,7 +1,7 @@
+import json
 from pathlib import Path
 import torch
 import torch.nn as nn
-import json
 from torch.utils.data import Dataset, DataLoader, random_split
 from models.SNN_single import SNN_SingleStep
 
@@ -38,14 +38,14 @@ class CartPoleDataset(Dataset):
 # Data set definition
 
 
-def set_seed(seed):
+def set_seed(seed: int):
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
 
 
-def identify_device():
-    return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+def identify_device() -> torch.device:
+    return torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 
 def train(model, device, data_loader, optimizer, criterion):
@@ -145,12 +145,11 @@ def main():
         print(f"  Train - Loss: {train_loss:.4f}, Acc: {train_acc*100:.2f}%")
         print(f"  Val   - Loss: {val_loss:.4f}, Acc: {val_acc*100:.2f}%")
 
-    # Save model
     model_path = results_dir / "snn_single_step_cartpole.pt"
     torch.save(model.state_dict(), model_path)
     print(f"Saved SNN policy to: {model_path}")
+    # Save model
 
-    # Save curves
     curves_path = results_dir / "snn_single_step_training_curves.json"
     with open(curves_path, "w") as f:
         json.dump(
@@ -163,7 +162,7 @@ def main():
             f,
         )
     print(f"Saved training curves to: {curves_path}")
-    # Saves training curves for later analysis
+    # Save curves
 
 
 if __name__ == "__main__":
