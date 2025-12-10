@@ -8,7 +8,6 @@ To run evaluation, paste the following command into repo root after training:
 python -m training_scripts.evaluate_MLP_base
 """
 
-
 def identify_device():
     return torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
