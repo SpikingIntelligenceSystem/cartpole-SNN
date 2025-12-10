@@ -3,4 +3,4 @@ snntorch
 gymnasium
 numpy
 matplotlib
-pygame
+gymnasium[classic-control]
