@@ -87,7 +87,7 @@ python -m environment_test
 ```
 This is optional, but reccomended to ensure the environment functions without errors.
 
-### Collect trajectories
+### Collect Trajectories
 ```
 python -m training_scripts.trajectory_collection
 ```
