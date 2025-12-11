@@ -19,7 +19,7 @@ seed = 0
 # Configurations
 
 data_path = Path("raw_data/cartpole_trajectories.pt")
-results_dir = Path("raw_data")
+results_dir = Path("results")
 results_dir.mkdir(parents=True, exist_ok=True)
 
 
