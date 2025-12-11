@@ -85,7 +85,7 @@ pip install -r requirements.txt
 ```
 python -m environment_test
 ```
-This is optional, but reccomended to ensure the environment functions without errors.
+This is optional, but recommended to ensure the environment functions without errors.
 
 ### Collect Trajectories
 ```
