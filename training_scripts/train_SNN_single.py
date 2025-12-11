@@ -19,9 +19,6 @@ seed = 0
 # Configurations
 
 data_path = Path("raw_data/cartpole_trajectories.pt")
-results_dir = Path("results")
-results_dir.mkdir(parents=True, exist_ok=True)
-
 
 class CartPoleDataset(Dataset):
     def __init__(self, path: Path):
@@ -142,15 +139,15 @@ def main():
         val_accs.append(val_acc)
 
         print(f"Epoch {epoch+1}/{num_epochs}")
-        print(f"  Train - Loss: {train_loss:.4f}, Acc: {train_acc*100:.2f}%")
-        print(f"  Val   - Loss: {val_loss:.4f}, Acc: {val_acc*100:.2f}%")
+        print(f"Training Loss: {train_loss:.4f} /// Accuracy: {train_acc*100:.2f}%")
+        print(f"Validation Loss: {val_loss:.4f} /// Accuracy: {val_acc*100:.2f}%")
 
-    model_path = results_dir / "snn_single_step_cartpole.pt"
+    model_path = "raw_data/snn_single_step_cartpole.pt"
     torch.save(model.state_dict(), model_path)
     print(f"Saved SNN policy to: {model_path}")
     # Save model
 
-    curves_path = results_dir / "snn_single_step_training_curves.json"
+    curves_path = "results/snn_single_step_training_curves.json"
     with open(curves_path, "w") as f:
         json.dump(
             {
@@ -162,7 +159,7 @@ def main():
             f,
         )
     print(f"Saved training curves to: {curves_path}")
-    # Save curves
+    # Save curves for later analysis
 
 
 if __name__ == "__main__":
