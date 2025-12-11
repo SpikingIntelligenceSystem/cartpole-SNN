@@ -3,7 +3,7 @@
 This project trains and compares three controllers to attempt to control the cartpole simulation:
 
 - A **standard MLP baseline** (ANN)
-- A **single-step SNN** (direct analog input → LIF → action)
+- A **single-step SNN** (direct analog input -> LIF -> action)
 - A **temporal SNN** (multi-step LIF dynamics with repeated analog input)
 
 All learned controllers are trained via **offline imitation learning** from a heuristic policy and then evaluated directly in the CartPole environment.
