@@ -1,11 +1,11 @@
 import torch
 from pathlib import Path
 from env_utilities import create_environment 
-from models.SNN_single import SNN_SingleStep
+from models.SNN_temporal import SNN_Temporal
 import json
 """
 To run evaluation, paste the following command into repo root after training:
-python -m training_scripts.evaluate_SNN_single
+python -m result_scripts.evaluate_SNN_temporal
 """
 
 def identify_device():
@@ -20,7 +20,7 @@ def run_simulation(env, model, device, max_steps = 500, render = True):
     while not done and num_steps < max_steps:
         state = torch.tensor(obs, dtype=torch.float32, device=device)
         with torch.no_grad():
-            action = model.action(state, deterministic=True)
+            action = model.action(state, num_steps, device)
         obs, reward, terminated, truncated, info = env.step(action)
         final_reward += reward
         num_steps += 1
@@ -33,8 +33,8 @@ def run_simulation(env, model, device, max_steps = 500, render = True):
 def main():
     device = identify_device()
     print(f"Evaluating on: {device}")
-    model = SNN_SingleStep(state_in=4, hidden_lay=64, action_out=2).to(device)
-    model_path = Path("raw_data/snn_single_step_cartpole.pt")
+    model = SNN_Temporal(state_in=4, hidden_lay=64, action_out=2).to(device)
+    model_path = Path("raw_data/snn_temporal_cartpole.pt")
     state_dict = torch.load(model_path, map_location=device)
     model.load_state_dict(state_dict)
     model.eval()
@@ -65,7 +65,7 @@ def main():
     results_dir.mkdir(exist_ok=True)
 
     eval_data = {
-        "model_name": "snn_single_step_cartpole",
+        "model_name": "snn_temporal_cartpole",
         "num_episodes": num_episodes,
         "episode_rewards": episode_rewards,
         "episode_steps": episode_steps,
@@ -73,7 +73,7 @@ def main():
         "avg_steps": avg_steps,
     }
 
-    out_path = results_dir / "eval_snn_single_step.json"
+    out_path = results_dir / "eval_snn_temporal.json"
     with open(out_path, "w") as f:
         json.dump(eval_data, f, indent=2)
 
@@ -81,4 +81,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
